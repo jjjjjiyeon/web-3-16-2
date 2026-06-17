@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DICTIONARY</title>
+
+<!-- Adobe Fonts (omnigothic + pd-kakabus) -->
+<script>
+  (function(d) {
+    var config = { kitId: 'lxq4gso', scriptTimeout: 3000, async: true },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+a { text-decoration:none; color:inherit; }
+html { scroll-behavior:smooth; }
+/* 기본은 옴니고딕 */
+body { background:#000; color:#fff; font-family:"omnigothic", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-weight:400; }
+
+/* 알파벳 = 옴니고딕(고딕) */
+.alpha { position:sticky; top:0; z-index:100; background:#d2f56a; display:flex; justify-content:space-between; align-items:center; padding:8px 1.6%; }
+.alpha a { color:#000; font-weight:500; font-size:clamp(13px,1.5vw,22px); width:clamp(26px,2.4vw,40px); height:clamp(26px,2.4vw,40px); display:inline-flex; align-items:center; justify-content:center; border-radius:50%; transition:all .15s; }
+.alpha a.active { background:#000; color:#d2f56a; }
+.alpha a:not(.active):hover { background:rgba(0,0,0,.12); }
+
+.list { padding:30px 6% 100px; }
+.entry { display:grid; grid-template-columns:42% 58%; gap:3%; padding:46px 0; border-top:1px solid #3a3a3a; align-items:start; scroll-margin-top:64px; }
+/* 큰 단어 = 옴니고딕(고딕) */
+.word { color:#d2f56a; font-weight:500; font-size:clamp(40px,6vw,86px); line-height:1.05; word-break:break-word; }
+/* ★ 필기체는 여기(작은 어원줄임말)에만 ★ */
+.suffix { display:inline-block; position:relative; top:0.1em; font-family:"pd-kakabus", "Brush Script MT", cursive; font-style:italic; font-size:0.34em; -webkit-text-stroke:1px #d2f56a; color:transparent; margin-left:8px; letter-spacing:.5px; }
+.def { padding-top:6px; }
+.def-head { display:flex; justify-content:space-between; align-items:baseline; gap:24px; margin-bottom:18px; }
+.cat { font-weight:600; font-size:clamp(15px,1.15vw,19px); white-space:nowrap; }
+.phrase { font-weight:600; font-size:clamp(15px,1.15vw,19px); text-align:right; }
+.desc { color:#b9b9b9; font-weight:400; font-size:clamp(14px,1.0vw,17px); line-height:1.75; }
+/* 품사 n. = 옴니고딕(고딕, 작게) */
+.pos { font-style:normal; }
+
+.home-btn { position:fixed; left:28px; bottom:28px; z-index:200; width:clamp(64px,7vw,104px); height:clamp(64px,7vw,104px); background:#d2f56a; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 24px rgba(0,0,0,.45); transition:transform .2s ease; }
+.home-btn:hover { transform:scale(1.07); }
+.home-btn svg { width:48%; height:48%; }
+</style>
+</head>
+<body>
+
+<nav class="alpha">
+<a href="#" data-l="A" class="active">A</a><a href="#" data-l="B">B</a><a href="#" data-l="C">C</a><a href="#" data-l="D">D</a><a href="#" data-l="E">E</a><a href="#" data-l="F">F</a><a href="#" data-l="G">G</a><a href="#" data-l="H">H</a><a href="#" data-l="I">I</a><a href="#" data-l="J">J</a><a href="#" data-l="K">K</a><a href="#" data-l="L">L</a><a href="#" data-l="M">M</a><a href="#" data-l="N">N</a><a href="#" data-l="O">O</a><a href="#" data-l="P">P</a><a href="#" data-l="Q">Q</a><a href="#" data-l="R">R</a><a href="#" data-l="S">S</a><a href="#" data-l="T">T</a><a href="#" data-l="U">U</a><a href="#" data-l="V">V</a><a href="#" data-l="W">W</a><a href="#" data-l="X">X</a><a href="#" data-l="Y">Y</a><a href="#" data-l="Z">Z</a>
+</nav>
+
+<main class="list">
+
+<div class="entry" data-initial="A">
+  <div class="word">Anemoia<span class="suffix">gk.</span></div>
+  <div class="def">
+    <div class="def-head"><span class="cat">향수 <em class="pos">n.</em></span><span class="phrase">살아보지도 않은 시절이 그리워</span></div>
+    <p class="desc">살아본 적도 없는 시절인데 왜인지 그립다. 흑백사진, 오래된 영화, 부모님 세대의 이야기에서 느껴지는 묘한 향수. 기억이 없으니 그리울 수 없는데, 분명히 그리운 감정.</p>
+  </div>
+</div>
+
+<div class="entry" data-initial="C">
+  <div class="word">Chrysalism<span class="suffix">gk.</span></div>
+  <div class="def">
+    <div class="def-head"><span class="cat">감각 <em class="pos">n.</em></span><span class="phrase">밖에 폭우 쏟아지는데 괜히 더 안심돼</span></div>
+    <p class="desc">폭풍이 치는 바깥과 달리 실내에서 느끼는 깊은 안락함. 세상이 시끄러울수록 반대로 더 포근하고 안전하게 느껴지는 감각.</p>
+  </div>
+</div>
+
+<div class="entry" data-initial="H">
+  <div class="word">Hiraeth<span class="suffix">wel.</span></div>
+  <div class="def">
+    <div class="def-head"><span class="cat">향수 <em class="pos">n.</em></span><span class="phrase">그리운데, 정확히 뭐가 그리운 건지 모르겠어</span></div>
+    <p class="desc">돌아갈 수 없는 곳, 혹은 존재한 적 없는 무언가에 대한 그리움. 고향도 아니고 과거도 아닌, 설명할 수 없는 무언가가 그리운 감정.</p>
+  </div>
+</div>
+
+<div class="entry" data-initial="K">
+  <div class="word">Kenopsia<span class="suffix">gk.</span></div>
+  <div class="def">
+    <div class="def-head"><span class="cat">감각 <em class="pos">n.</em></span><span class="phrase">사람 많던 곳이 텅 비었을 때, 왠지 오싹해</span></div>
+    <p class="desc">평소엔 북적이던 공간이 텅 비었을 때 느끼는 기묘한 감각. 무섭지도, 슬프지도 않은데 뭔가 이상하고 낯선 그 느낌.</p>
+  </div>
+</div>
+
+<div class="entry" data-initial="L">
+  <div class="word">Limerence<span class="suffix">eng.</span></div>
+  <div class="def">
+    <div class="def-head"><span class="cat">욕망 <em class="pos">n.</em></span><span class="phrase">답장 오기 전까지 폰을 손에서 못 놓겠어</span></div>
+    <p class="desc">상대가 나를 좋아해주길 집착에 가깝게 원하는 감정. 답장 하나에 하루가 결정되고, 그 사람 생각이 머릿속에서 사라지지 않는 상태.</p>
+  </div>
+</div>
+
+<div class="entry" data-initial="M">
+  <div class="word">Mauerbauertraurigkeit<span class="suffix">ger.</span></div>
+  <div class="def">
+    <div class="def-head"><span class="cat">고독 <em class="pos">n.</em></span><span class="phrase">아무 이유 없이 연락을 다 끊고 싶어</span></div>
+    <p class="desc">아무 이유 없이 모든 사람을 밀어내고 싶어지는 충동. 싫어서도, 화가 나서도 아닌데 혼자 있고 싶어지는, 설명하기 어려운 그 감정.</p>
+  </div>
+</div>
+
+<div class="entry" data-initial="M">
+  <div class="word">Monachopsis<span class="suffix">gk.</span></div>
+  <div class="def">
+    <div class="def-head"><span class="cat">고독 <em class="pos">n.</em></span><span class="phrase">다들 잘 어울리는데 나만 붕 떠있는 것 같아</span></div>
+    <p class="desc">지금 이 자리에 내가 어울리지 않는다는 미묘한 이질감. 다들 자연스럽게 어울리는데 나만 약간 겉도는 것 같은 느낌.</p>
+  </div>
+</div>
+
+<div class="entry" data-initial="O">
+  <div class="word">Occhiolism<span class="suffix">ita.</span></div>
+  <div class="def">
+    <div class="def-head"><span class="cat">인식 <em class="pos">n.</em></span><span class="phrase">내가 보는 세상이 전부가 아닐 수도 있다는 생각, 해본 적 있어?</span></div>
+    <p class="desc">내 관점이 얼마나 좁고 제한적인지를 문득 깨닫는 감각. 세상은 넓고, 나는 그중 아주 작은 일부만 보고 살고 있다는 자각.</p>
+  </div>
+</div>
+
+<div class="entry" data-initial="O">
+  <div class="word">Onism<span class="suffix">gk.</span></div>
+  <div class="def">
+    <div class="def-head"><span class="cat">인식 <em class="pos">n.</em></span><span class="phrase">지금 여기 있으면서 동시에 다른 곳에도 있고 싶었던 적 있어?</span></div>
+    <p class="desc">몸이 한 곳에만 있을 수밖에 없다는 사실에서 오는 답답함. 가보고 싶은 곳, 살아보고 싶은 삶이 너무 많은데 이 하나의 인생으로는 다 닿을 수 없다는 자각.</p>
+  </div>
+</div>
+
+<div class="entry" data-initial="S">
+  <div class="word">Sonder<span class="suffix">fra.</span></div>
+  <div class="def">
+    <div class="def-head"><span class="cat">인식 <em class="pos">n.</em></span><span class="phrase">스쳐지나간 낯선 이의 삶이 궁금해</span></div>
+    <p class="desc">무심코 스쳐 지나가는 타인도 나처럼 복잡하고 치열한 삶을 사는 주인공임을 문득 깨닫는 순간. 세상에 주인공이 나 혼자가 아니라는 감각.</p>
+  </div>
+</div>
+
+<div class="entry" data-initial="V">
+  <div class="word">Vellichor<span class="suffix">invented.</span></div>
+  <div class="def">
+    <div class="def-head"><span class="cat">향수 <em class="pos">n.</em></span><span class="phrase">중고책 밑줄 보다가 그 사람이 갑자기 궁금해진 적 있어?</span></div>
+    <p class="desc">헌책방이나 오래된 물건에서 느끼는 묘한 감각. 모르는 사람의 손을 거친 그 물건에 그 사람의 삶이 고스란히 담겨 있는 것 같은 기분.</p>
+  </div>
+</div>
+
+</main>
+
+<a href="index.html" class="home-btn" aria-label="홈으로 가기">
+<svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="20" y1="12" x2="5" y2="12"></line><polyline points="11 5 4 12 11 19"></polyline></svg>
+</a>
+
+<script>
+var links = document.querySelectorAll('.alpha a');
+links.forEach(function(a){
+  a.addEventListener('click', function(e){
+    e.preventDefault();
+    links.forEach(function(x){ x.classList.remove('active'); });
+    a.classList.add('active');
+    var t = document.querySelector('.entry[data-initial="' + a.dataset.l + '"]');
+    if (t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+});
+</script>
+
+</body>
+</html>

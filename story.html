@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>이름 없던 감정 사전</title>
+<!-- Adobe Fonts (omnigothic) -->
+<script>
+  (function(d) {
+    var config = { kitId: 'lxq4gso', scriptTimeout: 3000, async: true },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+a{text-decoration:none;color:inherit;}
+html,body{height:100%;}
+body{background:#000;color:#fff;font-family:"omnigothic","Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-weight:400;overflow:hidden;}
+
+/* 로고 */
+.logo{position:fixed;top:30px;left:3vw;z-index:5;font-size:clamp(15px,1.2vw,20px);font-weight:500;}
+.logo a:hover{color:#d2f56a;}
+
+/* 진입 인트로 이미지 (전체화면 cover) */
+.intro-img{position:fixed;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#000;z-index:90;opacity:1;transition:opacity 1.2s ease;}
+
+/* 연두 문구 박스 (인트로엔 가운데, 이후 좌하단) */
+.tag{position:fixed;left:3vw;bottom:170px;z-index:100;background:#d2f56a;color:#000;font-weight:500;font-size:clamp(18px,1.7vw,28px);padding:12px 22px;white-space:nowrap;transform-origin:center;transform:rotate(-8deg);}
+
+/* 하단 고정: 감정 이름 */
+.fixed-bottom{position:fixed;left:0;bottom:0;z-index:1;width:100%;}
+.emoname{position:absolute;left:3vw;bottom:24px;color:#d2f56a;font-weight:700;font-size:clamp(60px,10.5vw,180px);line-height:1;white-space:nowrap;}
+
+/* 스크롤되는 흰 글씨 영역 (아래쪽 페이드) */
+.scroll{position:fixed;inset:0;overflow-y:auto;z-index:2;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 70%,transparent 90%);
+          mask-image:linear-gradient(to bottom,#000 0%,#000 70%,transparent 90%);}
+.scroll::-webkit-scrollbar{display:none;}
+.story{padding:16vh 7vw 60vh 60vw;}
+.para{margin-bottom:2.2em;}
+.para p{font-size:clamp(17px,1.45vw,25px);line-height:1.55;color:#f2f2f2;margin-bottom:.5em;word-break:keep-all;}
+</style>
+</head>
+<body>
+
+<div class="logo"><a href="index.html">이름 없던 감정 사전</a></div>
+
+<div class="intro-img" id="introImg"></div>
+<div class="tag" id="tag"></div>
+
+<div class="fixed-bottom">
+  <div class="emoname" id="emoname"></div>
+</div>
+
+<div class="scroll">
+  <div class="story" id="story"></div>
+</div>
+
+<script>
+var DATA = {
+ anemoia:{name:"Anemoia", phrase:"살아보지도 않은 시절이 그리워", paras:[
+  "비 오는 일요일 오후, <br>오래된 서랍을 연다. 빛바랜 흑백 사진 한 장이 <br>손에 잡힌다.",
+  "가본 적 없는 골목, <br>만난 적 없는 사람들. 평상에 앉은 노인들, <br>교복 입고 깔깔대는 아이들. 어딘가 <br>라디오에서 흐르던 노래까지 <br>들리는 것 같다.",
+  "너는 그 시절에 <br>태어나지도 않았다. 그 거리를 <br>걸어본 적도 없다.",
+  "그런데도 <br>사진 속 햇살이 자꾸 그립다. 기억이 없어 <br>그리울 수 없는 게 맞는데, 마음은 <br>분명 <br>그곳으로 돌아가고 싶어 한다."]},
+ chrysalism:{name:"Chrysalism", phrase:"밖에 폭우 쏟아지는데 괜히 더 안심돼", paras:[
+  "늦은 밤, <br>창밖에서 <br>하늘이 찢어질 듯 <br>천둥이 친다. 빗줄기가 유리창을 <br>사정없이 두드린다.",
+  "바람은 <br>간판을 흔들고, 골목은 <br>어둠에 잠긴다. 세상이 <br>통째로 사납게 무너지는 것 같다.",
+  "그런데 <br>이불 속 내 몸은 더없이 따뜻하다. 처마를 타고 <br>떨어지는 빗소리가 자장가 같다.",
+  "바깥이 거칠수록 <br>이 작은 방이 더 안전해진다. 모든 소란이 <br>유리 한 장 너머에 있다는 사실이 <br>이상하게 나를 안심시킨다."]},
+ hiraeth:{name:"Hiraeth", phrase:"그리운데, 정확히 뭐가 그리운 건지 모르겠어", paras:[
+  "해 질 무렵, <br>낯선 동네를 혼자 걷는다. 문득 <br>어딘가로 돌아가고 싶어진다.",
+  "그런데 <br>그곳이 어디인지 떠오르지 않는다. 고향도 아니고,<br>지나온 어떤 시절도 아니다. 어쩌면<br>한 번도<br>존재한 적 없는 집.",
+  "거기엔<br>나를 있는 그대로 받아주는 따뜻함이 <br>있었을 것만 같은데, <br>그 문을 어디서 찾아야 할지 <br>알 수 없다.",
+  "돌아갈 수도, <br>도착할 수도 없는 곳. <br>마음만 자꾸 먼 데로 <br>새어 나간다."]},
+ kenopsia:{name:"Kenopsia", phrase:"사람 많던 곳이 텅 비었을 때, 왠지 오싹해", paras:[
+  "야간 자율학습이 끝난 밤, <br>불 꺼진 복도에 <br>나 혼자 남는다. 낮엔 <br>발 디딜 틈 없이 떠들썩하던 곳이다.",
+  "지금은 <br>내 발소리만 길게 울린다. 줄 맞춰 엎어진 의자들, <br>텅 빈 교실, <br>칠판엔 아직 <br>누군가의 글씨가 남아 있다.",
+  "무섭지도 <br>슬프지도 않은데 <br>공기가 어딘가 잘못된 것처럼 서늘하다.",
+  "방금까지 <br>사람이 가득했던 자리의 '없음'이 <br>오히려 더 또렷하게 나를 둘러싼다."]},
+ limerence:{name:"Limerence", phrase:"답장 오기 전까지 폰을 손에서 못 놓겠어", paras:[
+  "새벽 한 시, <br>보낸 메시지에 <br>아직 답이 없다. 화면을 껐다가, <br>1분도 안 돼 다시 켠다.",
+  "그 사람의 짧은 한마디에 <br>하루가 통째로 들떴다가 <br>읽씹 한 번에 바닥까지 가라앉는다.",
+  "밥을 먹어도, <br>길을 걸어도, <br>잠들기 직전까지도 <br>머릿속엔 온통 그 사람뿐이다.",
+  "좋아하는 걸 넘어, <br>그가 나를 똑같이 원해주길 <br>거의 매달리듯 바란다. 작은 호의 하나에 <br>온 세상이 <br>환해지는 상태."]},
+ mauer:{name:"Mauerbauertraurigkeit", phrase:"아무 이유 없이 연락을 다 끊고 싶어", paras:[
+  "평범한 저녁, <br>딱히 누가 미운 것도 <br>큰일이 있던 것도 <br>아니다.",
+  "그런데 <br>어느 순간 갑자기 <br>모든 사람으로부터 멀어지고 싶어진다. 울리는 전화도 받기 싫고 <br>다정한 안부 인사조차 <br>부담스럽다.",
+  "가장 가까운 사람마저 밀어내고 <br>혼자만의 벽 안으로 <br>숨고 싶다.",
+  "그러면서도 <br>한편으론, <br>이렇게 밀어내는 내가 못나 보여 <br>마음이 더 무겁다. 이유도 설명할 수 없이 <br>찾아오는 충동이다."]},
+ monachopsis:{name:"Monachopsis", phrase:"다들 잘 어울리는데 나만 붕 떠있는 것 같아", paras:[
+  "오랜만의 모임, <br>모두가 웃고 떠드는 자리 한가운데 <br>나도 분명 그 자리에 앉아 있다.",
+  "그런데 <br>어딘가 미세하게 어긋나 있다. 다들 물 흐르듯 자연스럽게 어울리는데 <br>나만 한 박자 늦게 웃고, <br>끼어들 타이밍을 놓친다.",
+  "누가 나를 밀어낸 것도 아닌데 <br>스스로가 이 풍경에 잘못 끼워진 조각 같다.",
+  "분명 <br>함께 있는데도 <br>혼자 붕 떠 있는 듯한 <br>위화감."]},
+ sonder:{name:"Sonder", phrase:"스쳐지나간 낯선 이의 삶이 궁금해", paras:[
+  "퇴근길 지하철, <br>맞은편에 앉은 낯선 사람과 <br>잠깐 눈이 마주친다. 곧, <br>너는 깨닫는다.",
+  "저 사람도 오늘 누군가와 다투었을지 모르고 <br>가슴 벅찬 사랑을 하고 있을지도, <br>말 못 할 후회를 품고 있을지도 <br>모른다는 걸.",
+  "스쳐 지나가는 <br>수백 명, <br>그 한 명 한 명이 <br>나만큼이나 <br>복잡하고 생생한 인생을 <br>살고 있다.",
+  "이 세상의 주인공이 <br>나 혼자가 아니라 <br>모두가 <br>각자 이야기의 <br>주인공이었다."]}
+};
+
+var id=(new URLSearchParams(location.search).get('e')||'mauer').toLowerCase();
+var d=DATA[id]||DATA.mauer;
+var tag=document.getElementById('tag');
+tag.textContent=d.phrase;
+document.getElementById('emoname').textContent=d.name;
+var story=document.getElementById('story');
+d.paras.forEach(function(p){
+  var box=document.createElement('div'); box.className='para';
+  p.split(/(?<=[.?]) /).forEach(function(s){ var line=document.createElement('p'); line.innerHTML=s; box.appendChild(line); });
+  story.appendChild(box);
+});
+document.title=d.name+" — 이름 없던 감정 사전";
+
+/* ===== 인트로 연출 ===== */
+var introImg=document.getElementById('introImg');
+introImg.style.backgroundImage="url('"+id+".jpeg')";
+
+function centerTag(){
+  tag.style.transition='none';
+  tag.style.transform='rotate(-8deg)';            // 최종 위치 측정용
+  var r=tag.getBoundingClientRect();
+  var dx=window.innerWidth/2-(r.left+r.width/2);
+  var dy=window.innerHeight/2-(r.top+r.height/2);
+  tag.style.transform='translate('+dx+'px,'+dy+'px) scale(1.5) rotate(0deg)';  // 가운데·크게
+  tag.offsetWidth;                                 // reflow
+}
+centerTag();
+window.addEventListener('load',centerTag);          // 폰트 로드 후 위치 재계산
+
+setTimeout(function(){
+  tag.style.transition='transform 1.3s cubic-bezier(.6,.05,.25,1)';
+  tag.style.transform='rotate(-8deg)';            // 원래 자리로 복귀
+  introImg.style.opacity='0';                     // 이미지 페이드아웃
+  setTimeout(function(){ introImg.style.display='none'; },1400);
+},2000);
+</script>
+</body>
+</html>

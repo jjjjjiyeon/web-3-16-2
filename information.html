@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>INFORMATION</title>
+
+<!-- Adobe Fonts (omnigothic) -->
+<script>
+  (function(d) {
+    var config = { kitId: 'lxq4gso', scriptTimeout: 3000, async: true },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+a { text-decoration:none; color:inherit; }
+li { list-style:none; }
+html, body { height:100%; }
+body { background:#000; color:#fff; font-family:"omnigothic", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-weight:400; height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+
+.contents { position:relative; }
+
+/* ===== NAV ===== */
+nav { flex:0 0 auto; }
+nav .contents { display:flex; align-items:center; justify-content:space-between; padding:3vh 3.2vw 0; }
+.logo { font-size:clamp(15px,1.2vw,21px); font-weight:500; }
+.logo a:hover { color:#d2f56a; }
+.menu { display:flex; gap:2.6vw; }
+.menu a { font-size:clamp(14px,1.05vw,19px); font-weight:500; letter-spacing:1px; padding-bottom:4px; transition:color .2s; }
+.menu a.active { border-bottom:2px solid #fff; }
+.menu a:not(.active):hover { color:#d2f56a; }
+
+/* ===== 본문 (하단 정렬) ===== */
+main { flex:1 1 auto; display:flex; flex-direction:column; justify-content:flex-end; padding:0 3.2vw; }
+.block + .block { margin-top:40px; }
+.tag { display:inline-block; background:#d2f56a; color:#000; font-weight:600; font-size:clamp(15px,1.15vw,18px); padding:7px 16px; margin-bottom:20px; }
+.txt { font-size:clamp(15px,1.15vw,19px); line-height:1.8; color:#f2f2f2; word-break:keep-all; }
+.txt a { text-decoration:underline; text-underline-offset:3px; }
+.txt a:hover { color:#d2f56a; }
+
+/* ===== 푸터 ===== */
+footer { flex:0 0 auto; padding:3vh 3.2vw; }
+.copy { font-size:clamp(12px,0.9vw,15px); color:#7a7a7a; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="contents">
+    <div class="logo"><a href="index.html">이름 없던 감정 사전</a></div>
+    <ul class="menu">
+      <li><a href="about.html">ABOUT</a></li>
+      <li><a href="information.html" class="active">INFORMATION</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="block">
+    <span class="tag">출처</span>
+    <p class="txt">출처 이 아카이브의 감정들은 John Koenig의 The Dictionary of Obscure Sorrows를 기반으로 합니다.<br>
+    Hiraeth는 실제 웨일스어 단어이며, Limerence는 심리학자 Dorothy Tennov가 1977년 처음 사용한 용어입니다.<br>이미지 생성 프롬프트 작성과 코딩, 내용 정리에는 Claude AI를, 실제 이미지 제작에는 Nano Banana Pro를 사용했습니다.</p>
+  </div>
+  <div class="block">
+    <span class="tag">참고영상</span>
+    <p class="txt">이름 없던 감정 11가지, 전부 설명해드림 — 알아봤음 <a href="https://www.youtube.com/watch?v=B1HD1nU-Cps" target="_blank" rel="noopener">youtube.com/watch?v=B1HD1nU-Cps</a></p>
+  </div>
+</main>
+
+<footer>
+  <div class="copy">ⓒ 2026 문지연 ㅣ 본 웹사이트는 웹인터렉션 수업 프로젝트로 제작되었습니다. 상업적 이용을 금합니다.</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>RECORD</title>
+<!-- Adobe Fonts (omnigothic) -->
+<script>
+  (function(d) {
+    var config = { kitId: 'lxq4gso', scriptTimeout: 3000, async: true },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+a { text-decoration:none; color:inherit; }
+html, body { height:100%; }
+body { background:#000; color:#fff; font-family:"omnigothic", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-weight:400; height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+#fx { position:fixed; inset:0; z-index:-1; pointer-events:none; }
+.title { text-align:center; color:#d2f56a; font-weight:500; font-size:clamp(20px,2vw,30px); padding:12vh 3vw 0; }
+.stage { flex:1 1 auto; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; padding:0 8vw; min-height:0; }
+.record-text { color:#d2f56a; font-weight:500; font-size:clamp(28px,4vw,60px); line-height:1.35; text-align:center; word-break:keep-all; opacity:0; }
+.record-text.show { animation:pop .5s ease forwards; }
+.record-date { color:#7d7d7d; font-weight:400; font-size:clamp(13px,1.1vw,17px); letter-spacing:1px; text-align:center; opacity:0; }
+.record-date.show { animation:pop .5s ease .12s forwards; }
+@keyframes pop { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+.inputbar { flex:0 0 auto; display:flex; justify-content:center; gap:12px; padding:0 5vw 7vh; }
+.field { width:min(560px,70vw); background:transparent; border:1.5px solid #d2f56a; border-radius:0; color:#fff; font-family:inherit; font-size:clamp(15px,1.2vw,18px); padding:16px 18px; outline:none; }
+.send  { background:#d2f56a; color:#000; border:none; border-radius:0; font-family:inherit; font-weight:600; font-size:clamp(15px,1.2vw,18px); padding:0 26px; cursor:pointer; transition:transform .15s; }
+.field::placeholder { color:#8a8a8a; }
+.send:hover { transform:scale(1.05); }
+.home-btn { position:fixed; left:28px; top:50%; transform:translateY(-50%); z-index:200; width:clamp(64px,7vw,104px); height:clamp(64px,7vw,104px); background:#d2f56a; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 24px rgba(0,0,0,.45); transition:transform .2s; }
+.home-btn:hover { transform:translateY(-50%) scale(1.07); }
+.home-btn svg { width:48%; height:48%; }
+/* 지난 기록 버튼 */
+.archive-btn { position:fixed; top:30px; right:3vw; z-index:200; background:transparent; border:1.5px solid #d2f56a; color:#d2f56a; font-family:inherit; font-size:clamp(13px,1vw,16px); padding:10px 20px; cursor:pointer; transition:all .2s; }
+.archive-btn:hover { background:#d2f56a; color:#000; }
+/* 아카이브 오버레이 */
+.archive { position:fixed; inset:0; z-index:300; background:rgba(0,0,0,.95); display:none; flex-direction:column; }
+.archive.open { display:flex; }
+.archive-head { display:flex; align-items:center; justify-content:space-between; padding:30px 6vw 20px; border-bottom:1px solid #333; }
+.archive-head h2 { color:#d2f56a; font-size:clamp(20px,1.8vw,28px); font-weight:600; }
+.archive-head .actions { display:flex; gap:18px; align-items:center; }
+.archive-head .clear { color:#888; font-size:14px; cursor:pointer; }
+.archive-head .clear:hover { color:#d2f56a; }
+.archive-head .close { color:#fff; font-size:30px; line-height:1; cursor:pointer; }
+.archive-list { flex:1; overflow-y:auto; padding:10px 6vw 60px; }
+.rec-item { padding:28px 0; border-bottom:1px solid #2a2a2a; }
+.rec-item .t { color:#f2f2f2; font-size:clamp(18px,1.8vw,28px); line-height:1.4; word-break:keep-all; }
+.rec-item .d { color:#7d7d7d; font-size:clamp(12px,1vw,15px); letter-spacing:1px; margin-top:10px; }
+.archive-empty { color:#666; text-align:center; padding:80px 0; font-size:18px; }
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<button class="archive-btn" id="archiveBtn">지난 기록</button>
+<h1 class="title">당신이 오늘 느낀 감정을 기록해주세요</h1>
+<div class="stage">
+  <div class="record-text" id="out"></div>
+  <div class="record-date" id="outDate"></div>
+</div>
+<div class="inputbar">
+  <input class="field" id="field" type="text" placeholder="감정을 입력하세요…" autocomplete="off">
+  <button class="send" id="send">보내기</button>
+</div>
+<a href="index.html" class="home-btn" aria-label="홈으로 가기">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="20" y1="12" x2="5" y2="12"></line><polyline points="11 5 4 12 11 19"></polyline></svg>
+</a>
+
+<!-- 지난 기록 아카이브 -->
+<div class="archive" id="archive">
+  <div class="archive-head">
+    <h2>지난 기록</h2>
+    <div class="actions">
+      <span class="clear" id="archiveClear">전체 지우기</span>
+      <span class="close" id="archiveClose">×</span>
+    </div>
+  </div>
+  <div class="archive-list" id="archiveList"></div>
+</div>
+
+<script>
+var field = document.getElementById('field'),
+    out   = document.getElementById('out'),
+    outDate = document.getElementById('outDate'),
+    send  = document.getElementById('send');
+
+function stamp(){
+  var n = new Date();
+  var y = n.getFullYear(),
+      m = ('0'+(n.getMonth()+1)).slice(-2),
+      day = ('0'+n.getDate()).slice(-2),
+      h = n.getHours(),
+      min = ('0'+n.getMinutes()).slice(-2);
+  var period = h<6 ? '새벽' : h<12 ? '오전' : h<18 ? '오후' : h<22 ? '저녁' : '밤';
+  var h12 = (h % 12) || 12;
+  return y+'.'+m+'.'+day+'  ·  '+period+' '+h12+'시 '+min+'분';
+}
+
+/* ===== 저장 (localStorage) ===== */
+var KEY = 'emotion_records';
+function loadRecords(){ try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch(e){ return []; } }
+function saveRecords(arr){ try { localStorage.setItem(KEY, JSON.stringify(arr)); } catch(e){} }
+
+/* ===== 아카이브 표시 ===== */
+var archive = document.getElementById('archive'),
+    archiveList = document.getElementById('archiveList');
+function renderArchive(){
+  var arr = loadRecords();
+  if(!arr.length){ archiveList.innerHTML = '<div class="archive-empty">아직 기록이 없어요.</div>'; return; }
+  var html = '';
+  for(var i=arr.length-1;i>=0;i--){            // 최신순
+    html += '<div class="rec-item"><div class="t"></div><div class="d"></div></div>';
+  }
+  archiveList.innerHTML = html;
+  var items = archiveList.querySelectorAll('.rec-item');
+  var k=0;
+  for(var i=arr.length-1;i>=0;i--){
+    items[k].querySelector('.t').textContent = arr[i].text;
+    items[k].querySelector('.d').textContent = arr[i].date;
+    k++;
+  }
+}
+document.getElementById('archiveBtn').addEventListener('click', function(){ renderArchive(); archive.classList.add('open'); });
+document.getElementById('archiveClose').addEventListener('click', function(){ archive.classList.remove('open'); });
+document.getElementById('archiveClear').addEventListener('click', function(){
+  if(confirm('지난 기록을 모두 지울까요?')){ saveRecords([]); renderArchive(); }
+});
+
+/* ===== 파티클 ===== */
+var canvas = document.getElementById('fx'), ctx = canvas.getContext('2d');
+function resizeFx(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+resizeFx(); addEventListener('resize', resizeFx);
+var parts = [];
+function burst(){
+  var cx = innerWidth/2, cy = innerHeight*0.45;
+  for(var i=0;i<28;i++){
+    parts.push({ x: cx+(Math.random()-.5)*180, y: cy+(Math.random()-.5)*80,
+      vx:(Math.random()-.5)*0.5, vy:-(Math.random()*0.7+0.25),
+      r:Math.random()*2.5+1.2, life:1, decay:Math.random()*0.006+0.004 });
+  }
+}
+function tick(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(var i=parts.length-1;i>=0;i--){
+    var p = parts[i];
+    p.x += p.vx; p.y += p.vy; p.vy *= 0.992; p.life -= p.decay;
+    if(p.life<=0){ parts.splice(i,1); continue; }
+    ctx.globalAlpha = Math.max(0,p.life)*0.7;
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle = '#d2f56a'; ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(tick);
+}
+tick();
+
+/* ===== 보내기 ===== */
+function submit(){
+  var v = field.value.trim();
+  if(!v) return;
+  var dateStr = stamp();
+  out.textContent = v;
+  outDate.textContent = dateStr;
+  out.classList.remove('show'); outDate.classList.remove('show');
+  void out.offsetWidth;
+  out.classList.add('show'); outDate.classList.add('show');
+  burst();
+  var arr = loadRecords();                 // 저장
+  arr.push({ text:v, date:dateStr });
+  saveRecords(arr);
+  field.value = '';
+  field.focus();
+}
+send.addEventListener('click', submit);
+field.addEventListener('keydown', function(e){
+  if(e.isComposing || e.keyCode === 229) return;   // 한글 조합 중일 땐 Enter 무시
+  if(e.key === 'Enter') submit();
+});
+</script>
+</body>
+</html>
